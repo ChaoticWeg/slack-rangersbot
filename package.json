@@ -1,0 +1,22 @@
+{
+  "name": "slack-rangersbot",
+  "version": "1.0.0",
+  "description": "Watches the Rangers so you don't have to",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "nodemon -x \"index.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaoticweg/slack-rangersbot.git"
+  },
+  "author": "ChaoticWeg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chaoticweg/slack-rangersbot/issues"
+  },
+  "homepage": "http://chaoticweg.cc/slack-rangersbot"
+}
