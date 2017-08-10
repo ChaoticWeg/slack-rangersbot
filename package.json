@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/chaoticweg/slack-rangersbot/issues"
   },
-  "homepage": "http://chaoticweg.cc/slack-rangersbot"
+  "homepage": "http://chaoticweg.cc/slack-rangersbot",
+  "dependencies": {
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13"
+  }
 }
