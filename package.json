@@ -20,7 +20,10 @@
   },
   "homepage": "http://chaoticweg.cc/slack-rangersbot",
   "dependencies": {
+    "colors": "^1.1.2",
     "moment": "^2.18.1",
-    "moment-timezone": "^0.5.13"
+    "moment-timezone": "^0.5.13",
+    "sprintf-js": "^1.1.1",
+    "winston": "^2.3.1"
   }
 }
