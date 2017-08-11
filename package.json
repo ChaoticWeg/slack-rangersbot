@@ -21,6 +21,7 @@
   "homepage": "http://chaoticweg.cc/slack-rangersbot",
   "dependencies": {
     "colors": "^1.1.2",
+    "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "promise": "^8.0.1",
