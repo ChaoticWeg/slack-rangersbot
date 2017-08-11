@@ -1,12 +1,17 @@
-const Constants = require('./lib/Constants.js');
 const Watcher   = require('./lib/watcher/Watcher.js');
+const Logger    = require('./lib/logging/Logger.js');
+const Constants = require('./lib/Constants.js');
 
-// TODO get rangers game ID from scoreboard
+var logger  = new Logger("MAIN");
 var watcher = new Watcher();
+
+watcher.on('data', data => {
+    logger.debug('Data event intercepted');
+});
 
 watcher.gameday.getGameByTeamId(Constants.TeamID).then(
 
-    (data) => {
+    data => {
         if (!data.gamePk)
         {
             console.error("The requested team does not play today.");
@@ -16,7 +21,7 @@ watcher.gameday.getGameByTeamId(Constants.TeamID).then(
         watcher.start(data.gamePk);
     },
 
-    (err) => {
+    err => {
         console.error(err);
     }
 
