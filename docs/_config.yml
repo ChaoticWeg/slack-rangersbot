@@ -4,6 +4,6 @@ baseurl: /slack-rangersbot
 
 links:
   - name: About
-    href: '/slack-rangersbot/about/'
+    href: '/slack-rangersbot/about'
   - name: Issues
     href: '//github.com/chaoticweg/slack-rangersbot/issues'
