@@ -9,27 +9,36 @@ var logger  = new Logger("MAIN");
 var watcher = new Watcher();
 var slack   = new Slack();
 
-watcher.on('data', data => fs.writeFileSync('./tmp/last-data.json', JSON.stringify(data, null, 4)));
+watcher.on('start', () => {
+    slack.announce('Bot online');
+});
+
+watcher.on('data', data => {
+    logger.silly('Received data');
+    fs.writeFileSync('./tmp/last-data.json', JSON.stringify(data, null, 4));
+});
 
 watcher.on('play', play => {
     logger.info(`New play! ${play.result.description.trim()}`);
     slack.announce(play.result.description.trim());
 });
 
-watcher.gameday.getGameByTeamId(Constants.TeamID).then(
+// watcher.gameday.getGameByTeamId(Constants.TeamID).then(
 
-    data => {
-        if (!data.gamePk)
-        {
-            console.error("The requested team does not play today.");
-            return;
-        }
+//     data => {
+//         if (!data.gamePk)
+//         {
+//             console.error("The requested team does not play today.");
+//             return;
+//         }
 
-        watcher.start(data.gamePk);
-    },
+//         watcher.start(data.gamePk);
+//     },
 
-    err => {
-        console.error(err);
-    }
+//     err => {
+//         console.error(err);
+//     }
 
-);
+// );
+
+watcher.start("491825");
