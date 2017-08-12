@@ -7,13 +7,19 @@ layout: default
 RangersBot watches Texas Rangers games and announces each play to the [RangerFam](https://reddit.com/r/TexasRangers) 
 Slack. RangersBot is written entirely in JavaScript and runs on [Node.js](https://nodejs.org/)
 
-### Planned features:
+### Planned features
 
 - Configurable announcement delay
 - New, informative messages that enhance MLBAM-provided play descriptions
 - Simple multi-user management
 - ...and more
 
+{% if site.links %}
 ## Links
 
-- [About]({{ "/about" | prepend:site.baseurl }})
+<ul>
+    {% for link in site.links %}
+        <li><a href="{{ link.href }}">{{ link.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
