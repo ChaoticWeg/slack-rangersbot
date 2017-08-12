@@ -16,4 +16,4 @@ Slack. RangersBot is written entirely in JavaScript and runs on [Node.js](https:
 
 ## Links
 
-- [About](/about)
+- [About]({{ "/about" | prepend:site.baseurl }})
