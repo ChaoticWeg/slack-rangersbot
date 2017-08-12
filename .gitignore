@@ -1,3 +1,10 @@
+# Node
 node_modules/
-tmp/
+
+# Hidden
 lib/*/secret
+
+# Runtime 
+tmp/
+docs/_site
+docs/.sass-cache
