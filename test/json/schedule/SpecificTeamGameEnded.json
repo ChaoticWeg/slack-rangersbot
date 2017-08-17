@@ -1,0 +1,82 @@
+{
+    "copyright" : "Copyright 2017 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+    "totalItems" : 1,
+    "totalEvents" : 0,
+    "totalGames" : 1,
+    "totalGamesInProgress" : 0,
+    "dates" : [ {
+      "date" : "2017-08-16",
+      "totalItems" : 1,
+      "totalEvents" : 0,
+      "totalGames" : 1,
+      "totalGamesInProgress" : 0,
+      "games" : [ {
+        "gamePk" : 491894,
+        "link" : "/api/v1/game/491894/feed/live",
+        "gameType" : "R",
+        "season" : "2017",
+        "gameDate" : "2017-08-17T00:05:00Z",
+        "status" : {
+          "abstractGameState" : "Final",
+          "codedGameState" : "O",
+          "detailedState" : "Game Over",
+          "statusCode" : "O",
+          "abstractGameCode" : "F"
+        },
+        "teams" : {
+          "away" : {
+            "leagueRecord" : {
+              "wins" : 53,
+              "losses" : 67,
+              "pct" : ".442"
+            },
+            "score" : 6,
+            "team" : {
+              "id" : 116,
+              "name" : "Detroit Tigers",
+              "link" : "/api/v1/teams/116"
+            },
+            "splitSquad" : false,
+            "seriesNumber" : 38
+          },
+          "home" : {
+            "leagueRecord" : {
+              "wins" : 59,
+              "losses" : 60,
+              "pct" : ".496"
+            },
+            "score" : 12,
+            "team" : {
+              "id" : 140,
+              "name" : "Texas Rangers",
+              "link" : "/api/v1/teams/140"
+            },
+            "splitSquad" : false,
+            "seriesNumber" : 38
+          }
+        },
+        "venue" : {
+          "id" : 13,
+          "name" : "Globe Life Park in Arlington",
+          "link" : "/api/v1/venues/13"
+        },
+        "content" : {
+          "link" : "/api/v1/game/491894/content"
+        },
+        "doubleHeader" : "N",
+        "gamedayType" : "P",
+        "tiebreaker" : "N",
+        "gameNumber" : 1,
+        "calendarEventID" : "14-491894-2017-08-16",
+        "seasonDisplay" : "2017",
+        "scheduledInnings" : 9,
+        "gamesInSeries" : 3,
+        "seriesGameNumber" : 3,
+        "seriesDescription" : "Regular Season",
+        "recordSource" : "S",
+        "ifNecessary" : "N",
+        "ifNecessaryDescription" : "Normal Game"
+      } ],
+      "events" : [ ]
+    } ]
+}

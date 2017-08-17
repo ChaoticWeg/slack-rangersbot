@@ -1,0 +1,80 @@
+{
+    "copyright" : "Copyright 2017 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+    "totalItems" : 1,
+    "totalEvents" : 0,
+    "totalGames" : 1,
+    "totalGamesInProgress" : 0,
+    "dates" : [ {
+      "date" : "2017-08-17",
+      "totalItems" : 1,
+      "totalEvents" : 0,
+      "totalGames" : 1,
+      "totalGamesInProgress" : 0,
+      "games" : [ {
+        "gamePk" : 491905,
+        "link" : "/api/v1/game/491905/feed/live",
+        "gameType" : "R",
+        "season" : "2017",
+        "gameDate" : "2017-08-18T00:05:00Z",
+        "status" : {
+          "abstractGameState" : "Preview",
+          "codedGameState" : "S",
+          "detailedState" : "Scheduled",
+          "statusCode" : "S",
+          "abstractGameCode" : "P"
+        },
+        "teams" : {
+          "away" : {
+            "leagueRecord" : {
+              "wins" : 45,
+              "losses" : 71,
+              "pct" : ".388"
+            },
+            "team" : {
+              "id" : 145,
+              "name" : "Chicago White Sox",
+              "link" : "/api/v1/teams/145"
+            },
+            "splitSquad" : false,
+            "seriesNumber" : 39
+          },
+          "home" : {
+            "leagueRecord" : {
+              "wins" : 59,
+              "losses" : 60,
+              "pct" : ".496"
+            },
+            "team" : {
+              "id" : 140,
+              "name" : "Texas Rangers",
+              "link" : "/api/v1/teams/140"
+            },
+            "splitSquad" : false,
+            "seriesNumber" : 39
+          }
+        },
+        "venue" : {
+          "id" : 13,
+          "name" : "Globe Life Park in Arlington",
+          "link" : "/api/v1/venues/13"
+        },
+        "content" : {
+          "link" : "/api/v1/game/491905/content"
+        },
+        "doubleHeader" : "N",
+        "gamedayType" : "P",
+        "tiebreaker" : "N",
+        "gameNumber" : 1,
+        "calendarEventID" : "14-491905-2017-08-17",
+        "seasonDisplay" : "2017",
+        "scheduledInnings" : 9,
+        "gamesInSeries" : 4,
+        "seriesGameNumber" : 1,
+        "seriesDescription" : "Regular Season",
+        "recordSource" : "S",
+        "ifNecessary" : "N",
+        "ifNecessaryDescription" : "Normal Game"
+      } ],
+      "events" : [ ]
+    } ]
+}
