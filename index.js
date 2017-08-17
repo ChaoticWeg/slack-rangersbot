@@ -27,7 +27,7 @@ watcher.on('data', data => {
 
 watcher.on('play', play => {
     logger.info(`New play! ${slack.format(play.result.description)}`);
-    slack.announce(play.result.description.trim());
+    slack.announcePlay(play);
 });
 
 watcher.gameday.getGameByTeamId(Constants.TeamID).then(
