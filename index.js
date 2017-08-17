@@ -19,7 +19,7 @@ watcher.on('data', data => {
 });
 
 watcher.on('play', play => {
-    logger.info(`New play! ${play.result.description.trim()}`);
+    logger.info(`New play! ${slack.format(play.result.description)}`);
     slack.announce(play.result.description.trim());
 });
 
