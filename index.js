@@ -16,6 +16,13 @@ watcher.on('start', () => {
 watcher.on('data', data => {
     logger.silly('Received data');
     fs.writeFileSync('./tmp/last-data.json', JSON.stringify(data, null, 4));
+
+    if (data && data.liveData && data.liveData.players &&
+        data.liveData.players.allPlayers &&
+        Object.keys(data.liveData.players.allPlayers).length > 0)
+    {
+        slack.formatter.setPlayers(data.liveData.players.allPlayers);
+    }
 });
 
 watcher.on('play', play => {
