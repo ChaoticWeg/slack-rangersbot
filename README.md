@@ -1,3 +1,3 @@
-# slack-rangersbot
+# RangersBot
 
 Soon™
