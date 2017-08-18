@@ -1,9 +1,10 @@
 const Slack     = require('./lib/slack/SlackHandler.js');
 const Watcher   = require('./lib/watcher/Watcher.js');
 const Logger    = require('./lib/logging/Logger.js');
+const Input     = require('./lib/logging/Input.js');
 const Timestamp = require('./lib/Timestamp.js');
 const Constants = require('./lib/Constants.js');
-const Readline  = require('readline');
+
 const fs        = require('fs');
 
 var logger  = new Logger("MAIN");
@@ -31,30 +32,30 @@ watcher.on('play', play => {
     slack.announcePlay(play);
 });
 
-var teamID = Constants.TeamID; // default to provided
-const rl   = Readline.createInterface({ input: process.stdin, output: process.stdout });
 
-rl.question(`Team ID (default: ${teamID}) > `, raw => {
-    var parsed = Number.parseInt(raw, 10);
+if (Constants.Debug)
+    begin(Constants.DebugTeamID);
+else
+    Input.getInt(`Team ID (default: ${Constants.TeamID}) > `).then(begin).catch(logger.error);
 
-    if (parsed)
-        teamID = parsed;
 
-    watcher.gameday.getGameByTeamId(Constants.TeamID).then(
+function begin(teamID)
+{
+    watcher.gameday.getGameByTeamId(teamID).then(
         
-            data => {
-                if (!data.gamePk)
-                {
-                    console.error("The requested team does not play today.");
-                    return;
-                }
-        
-                watcher.start(data.gamePk);
-            },
-        
-            err => {
-                console.error(err);
+        data => {
+            if (!data.gamePk)
+            {
+                console.error("The requested team does not play today.");
+                return;
             }
-        
-        );
-});
+    
+            watcher.start(data.gamePk);
+        },
+    
+        err => {
+            console.error(err);
+        }
+    
+    );
+};
