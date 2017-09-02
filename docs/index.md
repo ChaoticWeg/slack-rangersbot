@@ -20,6 +20,8 @@ RangersBot is provided for free under the [GNU GPLv3](//www.gnu.org/licenses/gpl
 
 Since RangersBot makes use of MLBAM's in an individual, non-commercial, non-bulk way, it complies with their copyright statement, found [here](//gdx.mlb.com/components/copyright.txt).
 
+Please understand that, while the GNU GPLv3 permits commercial use, the MLBAM's copyright forbids it.
+
 {% if site.links %}
 ### Links
 
