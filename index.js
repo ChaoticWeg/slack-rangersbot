@@ -5,12 +5,17 @@ const Input     = require('./lib/logging/Input.js');
 const Timestamp = require('./lib/Timestamp.js');
 const Constants = require('./lib/Constants.js');
 
-const fs        = require('fs');
+const moment    = require('moment-timezone');
 const _         = require('lodash');
+const fs        = require('fs');
+
 
 var logger  = new Logger("MAIN");
 var watcher = new Watcher();
 var slack   = new Slack();
+
+var MediaUrl = (calId, mediaId) => `http://m.mlb.com/tv/e${calId}/v${mediaId}`;
+
 
 watcher.on('data', data => {
     if (!data)
@@ -35,7 +40,6 @@ watcher.on('data', data => {
         watcher.announcedOnline = true;
 
         var message = "Bot online. ";
-        var attachments = [];
 
         if (data.gameData.status.statusCode === "I")
         {
@@ -46,20 +50,76 @@ watcher.on('data', data => {
             slack.announce(message);
         }
 
-        else if (data.gameData.status.statusCode === "P")
+        else if (data.gameData.status.statusCode === "P" || data.gameData.status.statusCode === "S")
         {
-            message += `${data.gameData.media.title} from ${data.gameData.venue.name} in ${data.gameData.venue.location} `;
-            message += `is set to begin at ${data.gameData.datetime.home.time} ${data.gameData.datetime.home.ampm} `;
-            message += `${data.gameData.datetime.home.timeZone}.`;
+            watcher.gameday.getGameContent(data.gameData.game.pk).then(contentData => {
+                var startMoment = moment.tz(contentData.gameDate, "America/Chicago");
 
-            attachments.push({
-                fallback: "Bot online",
-                pretext: message,
-                title: `${data.gameData.teams.away.name.abbrev} @ ${data.gameData.teams.home.name.abbrev}`,
-                title_link: `mlb.com${data.gameData.links.preview}`
+                var mediaTv = contentData.content.media.epg.filter(e => e.title === "MLBTV")[0].items;
+                var mediaRadio = contentData.content.media.epg.filter(e => e.title === "Audio")[0].items;
+
+                var homeMedia = {
+                    tv: mediaTv.filter(i => i.mediaFeedType === "HOME" && i.language.toUpperCase() === "EN")[0],
+                    radio: mediaRadio.filter(i => i.type === "HOME" && i.language.toUpperCase() === "EN")[0]
+                };
+
+                var awayMedia = {
+                    tv: mediaTv.filter(i => i.mediaFeedType === "AWAY" && i.language.toUpperCase() === "EN")[0],
+                    radio: mediaRadio.filter(i => i.type === "AWAY" && i.language.toUpperCase() === "EN")[0]
+                };
+
+                let attachments = [{
+                    author_name: "MLB Gameday",
+                    fallback: "Bot online.",
+
+                    pretext: [`${contentData.teams.away.team.abbreviation} @ ${contentData.teams.home.team.abbreviation}`,
+                        `from ${data.gameData.venue.name} is set to begin at ${startMoment.format("h:mm A z")}.`].join(' '),
+
+                    title: `${contentData.teams.away.team.name} @ ${contentData.teams.home.team.name}`,
+                    title_link: `https://www.mlb.com/gameday/${data.gameData.game.pk}`,
+
+                    fields: [
+                        {
+                            short: true,
+                            title: "Away",
+                            value: [`${contentData.teams.away.team.name} (${data.gameData.teams.away.record.wins}-`,
+                                `${data.gameData.teams.away.record.losses})\nMLB: `,
+                                `<${MediaUrl(contentData.calendarEventID, awayMedia.tv.id)}|*Watch*> or `,
+                                `<${MediaUrl(contentData.calendarEventID, awayMedia.radio.id)}|*Listen*>`].join('')
+                        },
+                        {
+                            short: true,
+                            title: "Home",
+                            value: [`${contentData.teams.home.team.name} (${data.gameData.teams.home.record.wins}-`,
+                                `${data.gameData.teams.home.record.losses})\nMLB: `,
+                                `<${MediaUrl(contentData.calendarEventID, homeMedia.tv.id)}|*Watch*> or `,
+                                `<${MediaUrl(contentData.calendarEventID, homeMedia.radio.id)}|*Listen*>`].join('')
+                        },
+                        {
+                            short: true,
+                            title: "Venue",
+                            value: [`${data.gameData.venue.name}`, (typeof data.gameData.venue.location == 'string' ? data.gameData.venue.location :
+                                `${data.gameData.venue.location.city}, ${data.gameData.venue.location.stateAbbrev}`)].join('\n')
+                        },
+                        {
+                            short: true,
+                            title: "Conditions",
+                            value: Object.keys(data.gameData.weather).length === 0 ? "TBD\n" : [`${data.gameData.weather.condition},`,
+                                `${data.gameData.weather.temp}°F\n${data.gameData.weather.wind}`].join(' ')
+                        }
+                    ],
+
+                    mrkdwn_in: [ "fields" ],
+                    footer: `${contentData.teams.away.team.abbreviation} @ ${contentData.teams.home.team.abbreviation}`,
+                    ts: startMoment.unix()
+                }];
+
+                return slack.announce(null, attachments);
+            }).catch(err => {
+                if (err) console.error(err);
+            }).done(() => {
+                logger.verbose("Sent pre-game greeting");
             });
-
-            slack.announce(null, attachments);
         }
     }
 });
@@ -75,26 +135,28 @@ watcher.on('inning', data => {
 
     logger.info(`Inning change! Now: ${data.liveData.linescore.inningState} ${data.liveData.linescore.currentInningOrdinal}`);
     slack.announceInningChange(data);
-})
+});
 
 
 // START 
 
 logger.info("Starting bot");
-watcher.gameday.getGameByTeamId(Constants.TeamID).then(
+// watcher.gameday.getGameByTeamId(Constants.TeamID).then(
     
-    data => {
-        if (!data.gamePk)
-        {
-            console.error("The requested team does not play today.");
-            return;
-        }
+//     data => {
+//         if (!data.gamePk)
+//         {
+//             console.error("The requested team does not play today.");
+//             return;
+//         }
 
-        watcher.start(data.gamePk);
-    },
+//         watcher.start(data.gamePk);
+//     },
 
-    err => {
-        console.error(err);
-    }
+//     err => {
+//         console.error(err);
+//     }
 
-);
+// );
+
+watcher.start(492124);
