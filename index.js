@@ -141,22 +141,20 @@ watcher.on('inning', data => {
 // START 
 
 logger.info("Starting bot");
-// watcher.gameday.getGameByTeamId(Constants.TeamID).then(
+watcher.gameday.getGameByTeamId(Constants.TeamID).then(
     
-//     data => {
-//         if (!data.gamePk)
-//         {
-//             console.error("The requested team does not play today.");
-//             return;
-//         }
+    data => {
+        if (!data.gamePk)
+        {
+            console.error("The requested team does not play today.");
+            return;
+        }
 
-//         watcher.start(data.gamePk);
-//     },
+        watcher.start(data.gamePk);
+    },
 
-//     err => {
-//         console.error(err);
-//     }
+    err => {
+        console.error(err);
+    }
 
-// );
-
-watcher.start(492124);
+);
