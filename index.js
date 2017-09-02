@@ -32,30 +32,29 @@ watcher.on('play', play => {
     slack.announcePlay(play);
 });
 
+watcher.on('inning', data => {
+    logger.info(`Inning change! Now: ${data.liveData.linescore.inningState} ${data.liveData.linescore.currentInningOrdinal}`);
+    slack.announceInningChange(data);
+})
 
-if (Constants.Debug)
-    begin(Constants.DebugTeamID);
-else
-    Input.getInt(`Team ID (default: ${Constants.TeamID}) > `).then(begin).catch(logger.error);
 
+// START 
 
-function begin(teamID)
-{
-    watcher.gameday.getGameByTeamId(teamID).then(
-        
-        data => {
-            if (!data.gamePk)
-            {
-                console.error("The requested team does not play today.");
-                return;
-            }
+logger.info("Starting bot");
+watcher.gameday.getGameByTeamId(Constants.TeamID).then(
     
-            watcher.start(data.gamePk);
-        },
-    
-        err => {
-            console.error(err);
+    data => {
+        if (!data.gamePk)
+        {
+            console.error("The requested team does not play today.");
+            return;
         }
-    
-    );
-};
+
+        watcher.start(data.gamePk);
+    },
+
+    err => {
+        console.error(err);
+    }
+
+);
