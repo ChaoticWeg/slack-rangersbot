@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const Slack     = require('./lib/slack/SlackHandler.js');
 const Watcher   = require('./lib/watcher/Watcher.js');
 const Logger    = require('./lib/logging/Logger.js');

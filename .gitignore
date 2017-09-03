@@ -2,7 +2,7 @@
 node_modules/
 
 # Hidden
-lib/*/secret
+.env
 
 # Runtime 
 tmp/
