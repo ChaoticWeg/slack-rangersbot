@@ -6,6 +6,7 @@ const Logger    = require('./lib/logging/Logger.js');
 const Input     = require('./lib/logging/Input.js');
 const Timestamp = require('./lib/Timestamp.js');
 const Constants = require('./lib/Constants.js');
+const CmdServer = require('./lib/commands/CommandServer.js');
 
 const moment    = require('moment-timezone');
 const _         = require('lodash');
@@ -140,23 +141,14 @@ watcher.on('inning', data => {
 });
 
 
+// COMMAND SERVER
+
+var cmdServer = new CmdServer(watcher);
+
+cmdServer.on('unknown', (req) => logger.warn('unknown command!'));
+
+
 // START 
 
 logger.info("Starting bot");
-watcher.gameday.getGameByTeamId(Constants.TeamID).then(
-    
-    data => {
-        if (!data.gamePk)
-        {
-            console.error("The requested team does not play today.");
-            return;
-        }
-
-        watcher.start(data.gamePk);
-    },
-
-    err => {
-        console.error(err);
-    }
-
-);
+cmdServer.listen(process.env.CmdServerPort);
