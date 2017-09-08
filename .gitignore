@@ -8,3 +8,6 @@ node_modules/
 tmp/
 docs/_site
 docs/.sass-cache
+
+# Config
+config/
