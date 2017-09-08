@@ -1,0 +1,9 @@
+# NPM/Node
+node_modules/**
+
+# Vim
+**/*.swp
+
+# Config
+config/*.json
+!config/default.json
