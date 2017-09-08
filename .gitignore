@@ -11,3 +11,6 @@ docs/.sass-cache
 
 # Config
 config/
+
+# Don't include gamedaybot, will need to be installed locally
+lib/gamedaybot/
