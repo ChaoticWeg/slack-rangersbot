@@ -1,0 +1,25 @@
+{
+  "name": "slack-gamedaybot",
+  "version": "1.0.0",
+  "description": "Generic MLB Gameday bot for Slack",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node index.js",
+    "test": "NODE_ENV=test node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaoticweg/slack-gamedaybot.git"
+  },
+  "author": "chaoticweg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chaoticweg/slack-gamedaybot/issues"
+  },
+  "homepage": "https://github.com/chaoticweg/slack-gamedaybot#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "config": "^1.26.2",
+    "express": "^4.15.4"
+  }
+}
